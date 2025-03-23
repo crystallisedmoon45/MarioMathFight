@@ -1,51 +1,33 @@
-#game-container {
-    width: 800px;
-    height: 600px;
-    border: 1px solid black;
-    position: relative;
-    margin: 0 auto;
-    background-color: lightblue;
+const questionDiv = document.getElementById('question');
+const answerInput = document.getElementById('answer');
+const submitButton = document.getElementById('submit');
+const resultDiv = document.getElementById('result');
+const bowser = document.getElementById('bowser');
+
+let num1, num2, correctAnswer;
+let bowserPosition = 50; // Initial position (right: 50px)
+
+function generateQuestion() {
+    num1 = Math.floor(Math.random() * 10) + 1;
+    num2 = Math.floor(Math.random() * 10) + 1;
+    correctAnswer = num1 * num2;
+    questionDiv.textContent = `${num1} x ${num2} = ?`;
+    answerInput.value = '';
 }
 
-#mario {
-    position: absolute;
-    bottom: 50px;
-    left: 50px;
-    width: 100px;
+function checkAnswer() {
+    const playerAnswer = parseInt(answerInput.value);
+    if (playerAnswer === correctAnswer) {
+        resultDiv.textContent = "Correct!";
+        bowserPosition += 5; // Move Bowser backward (increase right property)
+        bowser.style.right = bowserPosition + 'px';
+    } else {
+        resultDiv.textContent = "Incorrect!";
+        // Add code to "damage" Mario or make Bowser attack
+    }
+    generateQuestion();
 }
 
-#bowser {
-    position: absolute;
-    bottom: 50px;
-    right: 50px;
-    width: 150px;
-}
+submitButton.addEventListener('click', checkAnswer);
 
-#question {
-    position: absolute;
-    top: 50px;
-    left: 50%;
-    transform: translateX(-50%);
-    font-size: 24px;
-}
-
-#answer {
-    position: absolute;
-    top: 100px;
-    left: 50%;
-    transform: translateX(-50%);
-}
-
-#submit {
-    position: absolute;
-    top: 130px;
-    left: 50%;
-    transform: translateX(-50%);
-}
-
-#result{
-    position: absolute;
-    top: 160px;
-    left: 50%;
-    transform: translateX(-50%);
-}
+generateQuestion();
