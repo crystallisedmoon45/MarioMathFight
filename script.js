@@ -2,8 +2,10 @@ const questionDiv = document.getElementById('question');
 const answerInput = document.getElementById('answer');
 const submitButton = document.getElementById('submit');
 const resultDiv = document.getElementById('result');
+const bowser = document.getElementById('bowser');
 
 let num1, num2, correctAnswer;
+let bowserPosition = 50; // Initial position (right: 50px)
 
 function generateQuestion() {
     num1 = Math.floor(Math.random() * 10) + 1;
@@ -17,7 +19,8 @@ function checkAnswer() {
     const playerAnswer = parseInt(answerInput.value);
     if (playerAnswer === correctAnswer) {
         resultDiv.textContent = "Correct!";
-        // Add code to "damage" Bowser or advance the fight
+        bowserPosition += 5; // Move Bowser backward (increase right property)
+        bowser.style.right = bowserPosition + 'px';
     } else {
         resultDiv.textContent = "Incorrect!";
         // Add code to "damage" Mario or make Bowser attack
